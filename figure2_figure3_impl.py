@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.4
 
 import sys
 import re
@@ -11,17 +11,17 @@ def draw_time(data, filename = 'computation_and_communication_runtime_along_the_
     labels = ['computation', 'communication']
     axs = []
     for i in range(2):
-        axs.append(ax.bar(np.arange(10) + .75, data[i], width = .5, color = color_index[i], bottom = np.sum(data[:i], axis = 0), alpha = 0.7))
+        axs.append(ax.bar(np.arange(len(data[0])) + .75, data[i], width = .5, color = color_index[i], bottom = np.sum(data[:i], axis = 0), alpha = 0.7))
     ax.legend(axs, labels)
     plt.xlabel('iteration')
     plt.ylabel('time/s')
     plt.title("communication versus computation")
-    plt.show()
+    #plt.show()
     plt.savefig(filename)
     plt.close()
 
 def draw_tuples(data, filename = "tuples"):
-    x = np.arange(len(data))
+    x = np.arange(1, len(data) + 1)
     plt.plot(x, data[:, 0], '-*', color = 'r')
     plt.plot(x, data[:, 1], '-.', color = 'g')
     plt.plot(x, data[:, 2], '-x', color = 'b')
@@ -29,7 +29,7 @@ def draw_tuples(data, filename = "tuples"):
     plt.ylabel('Count of tuples/million')
     plt.title('Balance of work across processors along the iterations')
     plt.legend(['min', 'mean', 'max'])
-    plt.show()
+    #plt.show()
     plt.savefig(filename)
     plt.close()
 
@@ -68,19 +68,20 @@ def draw_pic():
         filename = input('Please input png file name: ')
     else:
         filename = sys.argv[2]
+    #print(sum(res[1]) + sum(res[0]))
     data = np.array([res[1], res[0]]) / 1000
     draw_time(data, filename)
     f.seek(0)
     s = f.read()
     res = re.findall('Load distribution of active tuples min-mean-max : (\d+),(\d+),(\d+)', s, re.M)
-    data =  np.array(list(map(lambda x : [int(y) for y in x], res))) / 1000000
-    if len(sys.argv) < 4:
-        filename = input('Please input png file name: ')
-    else:
-        filename = sys.argv[3]
+    data =  np.array(list(map(lambda x : [int(y) for y in x], res)))
+    #print(data)
+#    if len(sys.argv) < 4:
+#        filename = input('Please input png file name: ')
+#    else:
+    filename = sys.argv[3]
     draw_tuples(data, filename)
 
 if __name__ == '__main__':
     draw_pic()
 #    print(sum(res[0]), sum(res[1]))
-#6:57.55
