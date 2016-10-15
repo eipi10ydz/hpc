@@ -48,7 +48,7 @@ def count(f):
             communicate_time = 0
             compute_time = 0
         else:
-            if 'get_splitters' in line or 'all2all' in line or 'fix_partition' in line:
+            if 'get_splitters' in line or 'all2all' in line:
                 communicate_time += float(re.findall(r'(\S+)', line, re.M)[3])
             elif 'TIMER' in line:
                 compute_time += float(re.findall(r'(\S+)', line, re.M)[3])
