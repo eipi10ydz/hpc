@@ -36,10 +36,24 @@ def plotpng(pname, mem_all, time_x, mem_used):
     plt.savefig(pname)
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        pname = sys.argv[1]
-        mem_all, time_x, mem_used = check(sys.argv[1])
+    #if len(sys.argv) == 2:
+    #    pname = sys.argv[1]
+    #    mem_all, time_x, mem_used = check(sys.argv[1])
+    #else:
+    #    pname = input("input the program to be checked:")
+    #    mem_all, time_x, mem_used = check(pname)
+    mem_all = []
+    time_x = []
+    mem_used = []
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], "r") as f:
+            for line in f:
+                l = line.split(", ")
+                mem_all.append(float(l[0]))
+                time_x.append(float(l[1]))
+                mem_used.append(float(l[2]))
+    if len(sys.argv) > 2:
+        pname = sys.argv[2]
     else:
-        pname = input("input the program to be checked:")
-        mem_all, time_x, mem_used = check(pname)
+        pname = sys.argv[1]
     plotpng(pname, mem_all, time_x, mem_used)
