@@ -12,7 +12,7 @@ def draw_time(x, data, filename = "time"):
     plt.plot(x, data[:, 2], '-.', color = 'b')
     plt.xlabel('Number of cores')
     plt.ylabel('Time/sec')
-    plt.title('Performance of the three algorithm variants for data D1')
+    plt.title('Performance of the three algorithm variants for data provided')
     plt.legend(['AP_LB', 'AP', 'Naive'])
     #plt.show()
     plt.savefig(filename)
@@ -22,9 +22,12 @@ only deal with AP_LB_xxx, AP_LB_xxx, Naive_xxx, etc.
 """
 if __name__ == '__main__':
     file = next(os.walk('.'))[2]
-    AP = list(map(lambda x : (float(re.findall(r'Time \(ms\) -> (\S+)', open(x, 'r').read())[0]), x[3:]) , [x for x in file if len(re.findall(r'AP_\d{2,3}[^(.png)]$', x))]))
-    AP_LB = list(map(lambda x : (float(re.findall(r'Time \(ms\) -> (\S+)', open(x, 'r').read())[0]), x[6:]) , [x for x in file if len(re.findall(r'AP_LB_\d{2,3}[^(.png)]$', x))]))
-    Naive = list(map(lambda x : (float(re.findall(r'Time \(ms\) -> (\S+)', open(x, 'r').read())[0]), x[6:]) , [x for x in file if len(re.findall(r'Naive_\d{2,3}[^(.png)]$', x))]))
+    AP = list(map(lambda x : (float(re.findall(r'Time \(ms\) -> (\S+)', open(x, 'r').read())[0]), x[3:]) , [x for x in file if len(re.findall(r'AP_\d{1,3}[^(.png)]$', x))]))
+    AP_LB = list(map(lambda x : (float(re.findall(r'Time \(ms\) -> (\S+)', open(x, 'r').read())[0]), x[6:]) , [x for x in file if len(re.findall(r'AP_LB_\d{1,3}[^(.png)]$', x))]))
+    Naive = list(map(lambda x : (float(re.findall(r'Time \(ms\) -> (\S+)', open(x, 'r').read())[0]), x[6:]) , [x for x in file if len(re.findall(r'Naive_\d{1,3}[^(.png)]$', x))]))
+    print(AP)
+    print(AP_LB)
+    print(Naive)
     AP = sorted(AP, key = lambda x : int(x[1]))
     AP_LB = sorted(AP_LB, key = lambda x : int(x[1]))
     Naive = sorted(Naive, key = lambda x : int(x[1]))

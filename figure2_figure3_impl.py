@@ -27,7 +27,7 @@ def draw_tuples(data, filename = "tuples"):
     plt.plot(x, data[:, 2], '-x', color = 'b')
     plt.xlabel('Iterations')
     plt.ylabel('Count of tuples/million')
-    plt.title('Balance of work across processors along the iterations')
+    plt.title('Balance of work across processors')
     plt.legend(['min', 'mean', 'max'])
     #plt.show()
     plt.savefig(filename)
