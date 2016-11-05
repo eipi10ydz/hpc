@@ -32,7 +32,7 @@ def plotpng(pname, mem_all, time_x, mem_used):
     plt.plot(time_x, mem_used)
     plt.xlabel('time/s')
     plt.ylabel('mem_used/GiB')
-    plt.title(pname)
+    plt.title('Memory during running')
     plt.savefig(pname)
 
 if __name__ == '__main__':
