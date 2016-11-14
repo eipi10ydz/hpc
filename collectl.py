@@ -33,7 +33,7 @@ if __name__ == '__main__':
     res = ''
     Process(target = check, args = ('benchmark_parconnect',)).start()
     try:
-        res = co('collectl ', shell=True).decode()
+        res = co('collectl -sx', shell=True).decode()
     except Exception:
         pass
     print(res)
